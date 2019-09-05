@@ -36,18 +36,20 @@ import com.github.swrirobotics.bags.reader.messages.serialization.*;
 import com.github.swrirobotics.bags.reader.records.Connection;
 import org.junit.Test;
 
+import java.io.IOException;
 import java.io.File;
 import java.math.BigInteger;
 import java.util.List;
+import java.nio.file.Files;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.fail;
 
 public class TestBagFile {
     @Test
-    public void testInt8() throws BagReaderException {
-        File file = new File("src/test/resources/Int8.bag");
-        BagFile bag = new BagFile(file.getPath());
+    public void testInt8() throws BagReaderException, IOException {
+        byte[] bytes = Files.readAllBytes(new File("src/test/resources/Int8.bag").toPath());
+        BagFile bag = new BagFile(bytes);
         final int[] count = {0};
         bag.read();
         bag.forMessagesOnTopic("/data", new MessageHandler() {
