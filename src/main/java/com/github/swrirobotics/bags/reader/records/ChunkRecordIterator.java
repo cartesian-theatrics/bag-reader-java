@@ -41,6 +41,7 @@ import java.nio.channels.SeekableByteChannel;
 import java.util.Iterator;
 import java.util.List;
 import java.util.NoSuchElementException;
+import java.util.Set;
 
 /**
  * Messages stored for a connection can by split across multiple chunks.
@@ -50,7 +51,7 @@ import java.util.NoSuchElementException;
 public class ChunkRecordIterator implements Iterator<Record> {
     private final SeekableByteChannel myInput;
     private final Iterator<ChunkInfo> myChunkIter;
-    private final int myConnId;
+    private final Set<int> myConnIds;
     private Record myNextRecord = null;
 
     private static final Logger myLogger = LoggerFactory.getLogger(ChunkRecordIterator.class);
@@ -63,12 +64,11 @@ public class ChunkRecordIterator implements Iterator<Record> {
      * @param chunkInfos All of the chunk info records to search through for
      *                   connections.
      */
-    public ChunkRecordIterator(int connectionId,
+    public ChunkRecordIterator(Set<int> connectionIds,
                                final SeekableByteChannel input,
                                final List<ChunkInfo> chunkInfos) {
-        this.myConnId = connectionId;
+        this.myConnIds = connnectionIds;
         this.myInput = input;
-
         myChunkIter = chunkInfos.iterator();
     }
 
@@ -103,7 +103,7 @@ public class ChunkRecordIterator implements Iterator<Record> {
             // Iterate through our chunks until we find one that matches our connection ID.
             ChunkInfo info = myChunkIter.next();
             for (ChunkInfo.ChunkConnection conn : info.getConnections()) {
-                if (conn.getConnectionId() == myConnId) {
+                if (myConnIds.contains(conn.getConnectionId())) {
                     chunkPos = info.getChunkPos();
                     break;
                 }

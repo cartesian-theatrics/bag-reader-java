@@ -536,7 +536,7 @@ public class MessageType implements Field {
                     avgTime += time;
                 }
                 avgTime /= (double) type.getValue().size();
-                myLogger.info("  Type: " + pkg.getKey() + "/" + type.getKey() +
+    
                                       " : " + type.getValue().size() +
                                       " msgs, averaged " + avgTime +
                                       " ns per msg.");
