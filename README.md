@@ -1,7 +1,7 @@
 # This Fork
 
 Adds support for reading multiple topics simultaneously via. `forMessagesOnTopics`. `process` method of MessageHandler also now takes only a `BagMessage` instance, which includes topic, msg, and timestamp (similar to the Python api).
-Also upgrades to java 11.
+Also upgrades to java 11. It also adds support for reading directly from a byte array.
 
 
 # Java Bag Reader   [![Build Status](https://travis-ci.org/swri-robotics/bag-reader-java.svg?branch=master)](https://travis-ci.org/swri-robotics/bag-reader-java)
