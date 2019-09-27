@@ -34,6 +34,7 @@ import com.github.swrirobotics.bags.reader.exceptions.BagReaderException;
 import com.github.swrirobotics.bags.reader.exceptions.UnknownMessageException;
 import com.github.swrirobotics.bags.reader.messages.serialization.MessageType;
 import com.github.swrirobotics.bags.reader.messages.serialization.MsgIterator;
+import com.github.swrirobotics.bags.reader.messages.serialization.BagMessage;
 import com.github.swrirobotics.bags.reader.records.*;
 import com.google.common.collect.HashMultimap;
 import com.google.common.collect.Lists;
@@ -433,7 +434,7 @@ public class BagFile {
      * @return The first message found of that type, or null if none were found.
      * @throws BagReaderException If there was an error reading the bag.
      */
-    public MessageType getFirstMessageOfType(String messageType) throws BagReaderException {
+    public BagMessage getFirstMessageOfType(String messageType) throws BagReaderException {
         for (Connection conn : myConnectionsByType.get(messageType)) {
             try (SeekableByteChannel channel = getChannel()) {
                 MsgIterator iter = new MsgIterator(myChunkInfos, conn, channel);
@@ -460,7 +461,7 @@ public class BagFile {
      * @return The first message found on that topic, or null if none were found.
      * @throws BagReaderException If there was an error reading the bag.
      */
-    public MessageType getFirstMessageOnTopic(String topic) throws BagReaderException {
+    public BagMessage getFirstMessageOnTopic(String topic) throws BagReaderException {
         for (Connection conn : myConnectionsByTopic.get(topic)) {
             try (SeekableByteChannel channel = getChannel()) {
                 MsgIterator iter = new MsgIterator(myChunkInfos, conn, channel);

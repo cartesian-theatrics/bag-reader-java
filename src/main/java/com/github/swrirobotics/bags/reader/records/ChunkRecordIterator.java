@@ -51,7 +51,7 @@ import java.util.Set;
 public class ChunkRecordIterator implements Iterator<Record> {
     private final SeekableByteChannel myInput;
     private final Iterator<ChunkInfo> myChunkIter;
-    private final Set<int> myConnIds;
+    private final Set<Integer> myConnIds;
     private Record myNextRecord = null;
 
     private static final Logger myLogger = LoggerFactory.getLogger(ChunkRecordIterator.class);
@@ -64,10 +64,10 @@ public class ChunkRecordIterator implements Iterator<Record> {
      * @param chunkInfos All of the chunk info records to search through for
      *                   connections.
      */
-    public ChunkRecordIterator(Set<int> connectionIds,
+    public ChunkRecordIterator(Set<Integer> connectionIds,
                                final SeekableByteChannel input,
                                final List<ChunkInfo> chunkInfos) {
-        this.myConnIds = connnectionIds;
+        this.myConnIds = connectionIds;
         this.myInput = input;
         myChunkIter = chunkInfos.iterator();
     }
@@ -108,6 +108,7 @@ public class ChunkRecordIterator implements Iterator<Record> {
                     break;
                 }
             }
+            myLogger.warn("ChunkPos: {}", chunkPos);
         }
         if (chunkPos == -1) {
             return null;

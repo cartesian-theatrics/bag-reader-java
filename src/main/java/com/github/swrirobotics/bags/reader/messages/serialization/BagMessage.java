@@ -1,14 +1,14 @@
 package com.github.swrirobotics.bags.reader.messages.serialization;
 
-import com.github.swrirobotics.bags.reader.messages.serialization.MessageCollection;
 import com.github.swrirobotics.bags.reader.records.Connection;
+import com.github.swrirobotics.bags.reader.messages.serialization.MessageType;
 
 public class BagMessage {
     final public Connection conn;
-    final public MessageCollection msg;
+    final public MessageType msg;
 
-    public BagMessage(Connection conn, MessageCollection msg) {
+    public BagMessage(Connection conn, MessageType mt) {
         this.conn = conn;
-        this.msg = msg;
+        this.msg = mt;
     }
 }

@@ -32,6 +32,7 @@ package com.github.swrirobotics.bags.reader;
 
 import com.github.swrirobotics.bags.reader.exceptions.BagReaderException;
 import com.github.swrirobotics.bags.reader.exceptions.UninitializedFieldException;
+import com.github.swrirobotics.bags.reader.messages.serialization.BagMessage;
 import com.github.swrirobotics.bags.reader.messages.serialization.Float64Type;
 import com.github.swrirobotics.bags.reader.messages.serialization.MessageType;
 import org.slf4j.Logger;
@@ -107,7 +108,8 @@ public class BagReader {
             bag.printInfo();
 
             // Gets the first GPS message and prints it.
-            MessageType msg = bag.getFirstMessageOfType("gps_common/GPSFix");
+            BagMessage msg = bag.getFirstMessageOfType("gps_common/GPSFix");
+
             if (msg == null) {
                 msg = bag.getFirstMessageOfType("sensor_msgs/NavSatFix");
             }
@@ -116,8 +118,8 @@ public class BagReader {
             }
             if (msg != null) {
                 myLogger.info("Lat/Lon: " +
-                              msg.<Float64Type>getField("latitude").getValue() + " / " +
-                              msg.<Float64Type>getField("longitude").getValue());
+                              msg.msg.<Float64Type>getField("latitude").getValue() + " / " +
+                              msg.msg.<Float64Type>getField("longitude").getValue());
             }
 
             // Prints out a unique fingerprint for the bag file.  Note that

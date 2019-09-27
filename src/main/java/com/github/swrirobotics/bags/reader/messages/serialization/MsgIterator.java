@@ -32,6 +32,8 @@ package com.github.swrirobotics.bags.reader.messages.serialization;
 
 import com.github.swrirobotics.bags.reader.*;
 import com.github.swrirobotics.bags.reader.messages.serialization.MessageCollection;
+import com.github.swrirobotics.bags.reader.messages.serialization.BagMessage;
+import com.github.swrirobotics.bags.reader.messages.serialization.MessageType;
 import com.github.swrirobotics.bags.reader.exceptions.BagReaderException;
 import com.github.swrirobotics.bags.reader.exceptions.UnknownMessageException;
 import com.github.swrirobotics.bags.reader.records.ChunkInfo;
@@ -57,7 +59,7 @@ import java.util.HashMap;
  * of connection IDs and provide a mechanism to iterate over them.
  * Note that the messages are not guaranteed to be in any particular order.
  */
-public class MsgIterator implements Iterator<MessageType> {
+public class MsgIterator implements Iterator<BagMessage> {
     final private SeekableByteChannel myInput;
     final private List<ChunkInfo> myChunkInfos;
 
@@ -65,8 +67,8 @@ public class MsgIterator implements Iterator<MessageType> {
     private ByteBufferChannel currentBuffer = null;
     private ChunkRecordIterator chunkIter = null;
 
-    private MessageType nextMsg = null;
-    private HashMap<int, Connection> myConnections;
+    private BagMessage nextMsg = null;
+    private HashMap<Integer, Connection> myConnections = new HashMap<Integer, Connection>();
 
     private static final Logger myLogger = LoggerFactory.getLogger(MsgIterator.class);
 
@@ -99,9 +101,13 @@ public class MsgIterator implements Iterator<MessageType> {
                        final List<Connection> conns,
                        final SeekableByteChannel input) {
 
+
         for (Connection conn: conns) {
-            myConnections.put(conn.getConnectionId(), conn);
+            Integer connId = conn.getConnectionId();
+            myLogger.error("connection id: {}", connId);
+            myConnections.put(connId, conn);
         }
+        System.out.println("TESTING!!!");
 
         this.myInput = input;
         myChunkInfos = chunkInfos;
@@ -130,13 +136,13 @@ public class MsgIterator implements Iterator<MessageType> {
      * @return A MessageType that has deserialized the next message on the connection.
      */
     @Override
-    public MessageType next() {
+    public BagMessage next() {
         if (!hasNext()) {
             throw new NoSuchElementException();
         }
 
         if (nextMsg != null) {
-            MessageType tmp = nextMsg;
+            BagMessage tmp = nextMsg;
             nextMsg = null;
             return tmp;
         }
@@ -144,8 +150,10 @@ public class MsgIterator implements Iterator<MessageType> {
         throw new NoSuchElementException();
     }
 
-    private MessageType findNext() {
+    private BagMessage findNext() {
         // If we don't have an open ByteBuffer, get the one for the next connection.
+        System.out.println("WTF!!!");
+
         if (currentBuffer == null) {
             if (chunkIter != null && chunkIter.hasNext()) {
                 // If we have an active chunk iterator, get the next chunk and load
@@ -155,10 +163,12 @@ public class MsgIterator implements Iterator<MessageType> {
                     currentBuffer = new ByteBufferChannel(nextChunk.getData());
                 }
                 catch (BagReaderException e) {
+                    myLogger.error("Error reading chunk:", e);
                     return null;
                 }
             }
             else {
+                System.out.println("NULL BUFFER");
                 chunkIter = new ChunkRecordIterator(myConnections.keySet(), myInput, myChunkInfos);
                 // After we've loaded a new iterator, we can recurse down and try to
                 // load from it...
@@ -174,17 +184,20 @@ public class MsgIterator implements Iterator<MessageType> {
                 Header header = record.getHeader();
                 int connId = header.getInt("conn");
                 if (header.getType() == Record.RecordType.MESSAGE_DATA && myConnections.containsKey(connId)) {
+                    System.out.println("TESTING!!!");
                     ByteBuffer buf = record.getData().order(ByteOrder.LITTLE_ENDIAN);
                     Connection conn =  myConnections.get(connId);
                     MessageCollection msg = conn.getMessageCollection();
-                    msg.reset();
-                    msg.readMessage(buf);
-                    return new BagMessage(conn, msg);
+                    MessageType mt = msg.getMessageType();
+                    mt.reset();
+                    mt.readMessage(buf);
+                    return new BagMessage(conn, mt);
                 }
             }
         }
-        catch (BagReaderException | IOException | RuntimeException e) {
+        catch (BagReaderException | IOException | UnknownMessageException | RuntimeException e) {
             myLogger.error("Error reading messages", e);
+            System.out.println("Error reading messages!!!!");
             return null;
         }
 
