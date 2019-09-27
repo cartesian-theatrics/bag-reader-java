@@ -80,7 +80,6 @@ public class TestBagFile {
         bag.forMessagesOnTopic("/data", new MessageHandler() {
             @Override
             public boolean process(BagMessage msg, Connection connection) {
-                System.out.println("Processing!!!");
                 MessageType message = msg.msg;
                 ArrayType data = message.getField("data");
                 byte[] values = data.getAsBytes();

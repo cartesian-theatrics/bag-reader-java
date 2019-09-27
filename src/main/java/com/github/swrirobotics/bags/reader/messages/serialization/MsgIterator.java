@@ -104,10 +104,8 @@ public class MsgIterator implements Iterator<BagMessage> {
 
         for (Connection conn: conns) {
             Integer connId = conn.getConnectionId();
-            myLogger.error("connection id: {}", connId);
             myConnections.put(connId, conn);
         }
-        System.out.println("TESTING!!!");
 
         this.myInput = input;
         myChunkInfos = chunkInfos;

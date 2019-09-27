@@ -108,7 +108,6 @@ public class ChunkRecordIterator implements Iterator<Record> {
                     break;
                 }
             }
-            myLogger.warn("ChunkPos: {}", chunkPos);
         }
         if (chunkPos == -1) {
             return null;
