@@ -31,7 +31,6 @@
 package com.github.swrirobotics.bags.reader;
 
 import com.github.swrirobotics.bags.reader.messages.serialization.BagMessage;
-import com.github.swrirobotics.bags.reader.records.Connection;
 
 /**
  * Processes messages retrieved from bag files.
@@ -45,5 +44,5 @@ public interface MessageHandler {
      * @param connection The connection the message arrived on.
      * @return false to cease processing, true to continue.
      */
-    boolean process(BagMessage message, final Connection connection);
+    boolean process(BagMessage message);
 }

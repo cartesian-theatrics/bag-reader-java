@@ -354,7 +354,7 @@ public class BagFile {
                 MsgIterator iter = new MsgIterator(myChunkInfos, conn, channel);
 
                 while (iter.hasNext()) {
-                    boolean keepWorking = handler.process(iter.next(), conn);
+                    boolean keepWorking = handler.process(iter.next());
                     if (!keepWorking) {
                         return;
                     }
@@ -386,7 +386,7 @@ public class BagFile {
                 MsgIterator iter = new MsgIterator(myChunkInfos, conn, channel);
 
                 while (iter.hasNext()) {
-                    boolean keepWorking = handler.process(iter.next(), conn);
+                    boolean keepWorking = handler.process(iter.next());
                     if (!keepWorking) {
                         return;
                     }
@@ -415,7 +415,7 @@ public class BagFile {
                 MsgIterator iter = new MsgIterator(myChunkInfos, conn, channel);
 
                 while (iter.hasNext()) {
-                    boolean keepWorking = handler.process(iter.next(), conn);
+                    boolean keepWorking = handler.process(iter.next());
                     if (!keepWorking) {
                         return;
                     }
@@ -440,7 +440,7 @@ public class BagFile {
             MsgIterator iter = new MsgIterator(myChunkInfos, connections, channel);
             while (iter.hasNext()) {
                 BagMessage msg = iter.next();
-                boolean keepWorking = handler.process(msg, msg.conn);
+                boolean keepWorking = handler.process(msg);
                 if (!keepWorking) {
                     return;
                 }

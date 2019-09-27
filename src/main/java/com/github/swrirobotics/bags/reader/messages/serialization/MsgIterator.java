@@ -187,7 +187,7 @@ public class MsgIterator implements Iterator<BagMessage> {
                     MessageType mt = msg.getMessageType();
                     mt.reset();
                     mt.readMessage(buf);
-                    return new BagMessage(conn, mt);
+                    return new BagMessage(conn.getTopic(), mt, header.getTimestamp("time"));
                 }
             }
         }

@@ -33,7 +33,6 @@ package com.github.swrirobotics.bags.reader;
 import com.github.swrirobotics.bags.reader.exceptions.BagReaderException;
 import com.github.swrirobotics.bags.reader.exceptions.UninitializedFieldException;
 import com.github.swrirobotics.bags.reader.messages.serialization.*;
-import com.github.swrirobotics.bags.reader.records.Connection;
 import com.google.common.collect.Lists;
 import org.junit.Test;
 
@@ -55,7 +54,7 @@ public class TestBagFile {
         bag.read();
         bag.forMessagesOnTopic("/data", new MessageHandler() {
             @Override
-            public boolean process(BagMessage msg, Connection connection) {
+            public boolean process(BagMessage msg) {
                 MessageType message = msg.msg;
                 Int8Type data = message.getField("data");
                 try {
@@ -79,7 +78,7 @@ public class TestBagFile {
         bag.read();
         bag.forMessagesOnTopic("/data", new MessageHandler() {
             @Override
-            public boolean process(BagMessage msg, Connection connection) {
+            public boolean process(BagMessage msg) {
                 MessageType message = msg.msg;
                 ArrayType data = message.getField("data");
                 byte[] values = data.getAsBytes();
@@ -101,7 +100,7 @@ public class TestBagFile {
         bag.read();
         bag.forMessagesOnTopic("/data", new MessageHandler() {
             @Override
-            public boolean process(BagMessage msg, Connection connection) {
+            public boolean process(BagMessage msg) {
                 MessageType message = msg.msg;
                 UInt8Type data = message.getField("data");
                 try {
@@ -125,7 +124,7 @@ public class TestBagFile {
         bag.read();
         bag.forMessagesOnTopic("/data", new MessageHandler() {
             @Override
-            public boolean process(BagMessage msg, Connection connection) {
+            public boolean process(BagMessage msg) {
                 MessageType message = msg.msg;
                 ArrayType data = message.getField("data");
                 short[] values = data.getAsShorts();
@@ -148,7 +147,7 @@ public class TestBagFile {
         bag.read();
         bag.forMessagesOnTopic("/data", new MessageHandler() {
             @Override
-            public boolean process(BagMessage msg, Connection connection) {
+            public boolean process(BagMessage msg) {
                 MessageType message = msg.msg;
                 Int16Type data = message.getField("data");
                 try {
@@ -172,7 +171,7 @@ public class TestBagFile {
         bag.read();
         bag.forMessagesOnTopic("/data", new MessageHandler() {
             @Override
-            public boolean process(BagMessage msg, Connection connection) {
+            public boolean process(BagMessage msg) {
                 MessageType message = msg.msg;
                 ArrayType data = message.getField("data");
                 short[] values = data.getAsShorts();
@@ -194,7 +193,7 @@ public class TestBagFile {
         bag.read();
         bag.forMessagesOnTopic("/data", new MessageHandler() {
             @Override
-            public boolean process(BagMessage msg, Connection connection) {
+            public boolean process(BagMessage msg) {
                 MessageType message = msg.msg;
                 UInt16Type data = message.getField("data");
                 try {
@@ -218,7 +217,7 @@ public class TestBagFile {
         bag.read();
         bag.forMessagesOnTopic("/data", new MessageHandler() {
             @Override
-            public boolean process(BagMessage msg, Connection connection) {
+            public boolean process(BagMessage msg) {
                 MessageType message = msg.msg;
                 ArrayType data = message.getField("data");
                 int[] values = data.getAsInts();
@@ -240,7 +239,7 @@ public class TestBagFile {
         bag.read();
         bag.forMessagesOnTopic("/data", new MessageHandler() {
             @Override
-            public boolean process(BagMessage msg, Connection connection) {
+            public boolean process(BagMessage msg) {
                 MessageType message = msg.msg;
                 Int32Type data = message.getField("data");
                 try {
@@ -264,7 +263,7 @@ public class TestBagFile {
         bag.read();
         bag.forMessagesOnTopic("/data", new MessageHandler() {
             @Override
-            public boolean process(BagMessage msg, Connection connection) {
+            public boolean process(BagMessage msg) {
                 MessageType message = msg.msg;
                 ArrayType data = message.getField("data");
                 int[] values = data.getAsInts();
@@ -286,7 +285,7 @@ public class TestBagFile {
         bag.read();
         bag.forMessagesOnTopic("/data", new MessageHandler() {
             @Override
-            public boolean process(BagMessage msg, Connection connection) {
+            public boolean process(BagMessage msg) {
                 MessageType message = msg.msg;
                 UInt32Type data = message.getField("data");
                 try {
@@ -310,7 +309,7 @@ public class TestBagFile {
         bag.read();
         bag.forMessagesOnTopic("/data", new MessageHandler() {
             @Override
-            public boolean process(BagMessage msg, Connection connection) {
+            public boolean process(BagMessage msg) {
                 MessageType message = msg.msg;
                 ArrayType data = message.getField("data");
                 long[] values = data.getAsLongs();
@@ -332,7 +331,7 @@ public class TestBagFile {
         bag.read();
         bag.forMessagesOnTopic("/data", new MessageHandler() {
             @Override
-            public boolean process(BagMessage msg, Connection connection) {
+            public boolean process(BagMessage msg) {
                 MessageType message = msg.msg;
                 Int64Type data = message.getField("data");
                 try {
@@ -356,7 +355,7 @@ public class TestBagFile {
         bag.read();
         bag.forMessagesOnTopic("/data", new MessageHandler() {
             @Override
-            public boolean process(BagMessage msg, Connection connection) {
+            public boolean process(BagMessage msg) {
                 MessageType message = msg.msg;
                 ArrayType data = message.getField("data");
                 long[] values = data.getAsLongs();
@@ -378,7 +377,7 @@ public class TestBagFile {
         bag.read();
         bag.forMessagesOnTopic("/data", new MessageHandler() {
             @Override
-            public boolean process(BagMessage msg, Connection connection) {
+            public boolean process(BagMessage msg) {
                 MessageType message = msg.msg;
                 UInt64Type data = message.getField("data");
                 try {
@@ -402,7 +401,7 @@ public class TestBagFile {
         bag.read();
         bag.forMessagesOnTopic("/data", new MessageHandler() {
             @Override
-            public boolean process(BagMessage msg, Connection connection) {
+            public boolean process(BagMessage msg) {
                 MessageType message = msg.msg;
                 ArrayType data = message.getField("data");
                 BigInteger[] values = data.getAsBigIntegers();
@@ -423,7 +422,7 @@ public class TestBagFile {
         bag.read();
         bag.forMessagesOnTopic("/data", new MessageHandler() {
             @Override
-            public boolean process(BagMessage msg, Connection connection) {
+            public boolean process(BagMessage msg) {
                 MessageType message = msg.msg;
                 Float32Type data = message.getField("data");
                 try {
@@ -448,7 +447,7 @@ public class TestBagFile {
         bag.read();
         bag.forMessagesOnTopic("/data", new MessageHandler() {
             @Override
-            public boolean process(BagMessage msg, Connection connection) {
+            public boolean process(BagMessage msg) {
                 MessageType message = msg.msg;
                 ArrayType data = message.getField("data");
                 float[] values = data.getAsFloats();
@@ -469,7 +468,7 @@ public class TestBagFile {
         bag.read();
         bag.forMessagesOnTopic("/data", new MessageHandler() {
             @Override
-            public boolean process(BagMessage msg, Connection connection) {
+            public boolean process(BagMessage msg) {
                 MessageType message = msg.msg;
                 Float64Type data = message.getField("data");
                 try {
@@ -494,7 +493,7 @@ public class TestBagFile {
         bag.read();
         bag.forMessagesOnTopics(Lists.newArrayList("/data"), new MessageHandler() {
             @Override
-            public boolean process(BagMessage msg, Connection connection) {
+            public boolean process(BagMessage msg) {
                 MessageType message = msg.msg;
                 ArrayType data = message.getField("data");
                 double[] values = data.getAsDoubles();
@@ -514,7 +513,7 @@ public class TestBagFile {
         bag.read();
         bag.forMessagesOnTopic("/pointcloud2", new MessageHandler() {
             @Override
-            public boolean process(BagMessage msg, Connection connection) {
+            public boolean process(BagMessage msg) {
                 try {
                     MessageType message = msg.msg;
                     assertEquals(124914,
