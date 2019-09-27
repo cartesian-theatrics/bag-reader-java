@@ -45,6 +45,7 @@ import com.google.common.primitives.Longs;
 import org.apache.commons.codec.digest.DigestUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import java.util.ArrayList;
 
 import java.io.File;
 import java.io.IOException;
@@ -425,6 +426,32 @@ public class BagFile {
             }
         }
     }
+
+    public void forMessagesOnTopics(ArrayList<String> topics, MessageHandler handler) throws BagReaderException {
+        ArrayList<Connection> connections = new ArrayList<Connection>();
+        for (String topic : topics) {
+            Collection<Connection> conns = myConnectionsByTopic.get(topic);
+            for (Connection conn : conns) {
+                connections.add(conn);
+            }
+        }
+
+        try (SeekableByteChannel channel = getChannel()) {
+            MsgIterator iter = new MsgIterator(myChunkInfos, connections, channel);
+            while (iter.hasNext()) {
+                BagMessage msg = iter.next();
+                boolean keepWorking = handler.process(msg, msg.conn);
+                if (!keepWorking) {
+                    return;
+                }
+            }
+        }
+        catch (IOException e) {
+            throw new BagReaderException(e);
+        }
+    }
+
+
 
     /**
      * Searches through every connection in the bag for one with the specified

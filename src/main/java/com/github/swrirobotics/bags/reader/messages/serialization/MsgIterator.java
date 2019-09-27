@@ -152,8 +152,6 @@ public class MsgIterator implements Iterator<BagMessage> {
 
     private BagMessage findNext() {
         // If we don't have an open ByteBuffer, get the one for the next connection.
-        System.out.println("WTF!!!");
-
         if (currentBuffer == null) {
             if (chunkIter != null && chunkIter.hasNext()) {
                 // If we have an active chunk iterator, get the next chunk and load
@@ -167,12 +165,13 @@ public class MsgIterator implements Iterator<BagMessage> {
                     return null;
                 }
             }
-            else {
-                System.out.println("NULL BUFFER");
+            else if (chunkIter == null) {
                 chunkIter = new ChunkRecordIterator(myConnections.keySet(), myInput, myChunkInfos);
                 // After we've loaded a new iterator, we can recurse down and try to
                 // load from it...
                 return findNext();
+            } else {
+                return null;
             }
         }
 
@@ -184,7 +183,6 @@ public class MsgIterator implements Iterator<BagMessage> {
                 Header header = record.getHeader();
                 int connId = header.getInt("conn");
                 if (header.getType() == Record.RecordType.MESSAGE_DATA && myConnections.containsKey(connId)) {
-                    System.out.println("TESTING!!!");
                     ByteBuffer buf = record.getData().order(ByteOrder.LITTLE_ENDIAN);
                     Connection conn =  myConnections.get(connId);
                     MessageCollection msg = conn.getMessageCollection();
@@ -197,7 +195,6 @@ public class MsgIterator implements Iterator<BagMessage> {
         }
         catch (BagReaderException | IOException | UnknownMessageException | RuntimeException e) {
             myLogger.error("Error reading messages", e);
-            System.out.println("Error reading messages!!!!");
             return null;
         }
 
