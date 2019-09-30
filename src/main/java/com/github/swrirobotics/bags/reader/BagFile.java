@@ -452,6 +452,24 @@ public class BagFile {
     }
 
 
+    public MsgIterator iterMessagesOnTopics(ArrayList<String> topics) throws BagReaderException {
+        ArrayList<Connection> connections = new ArrayList<Connection>();
+        for (String topic : topics) {
+            Collection<Connection> conns = myConnectionsByTopic.get(topic);
+            for (Connection conn : conns) {
+                connections.add(conn);
+            }
+        }
+
+        try {
+            return new MsgIterator(myChunkInfos, connections, getChannel());
+        }
+        catch (IOException e) {
+            throw new BagReaderException(e);
+        }
+    }
+
+
 
     /**
      * Searches through every connection in the bag for one with the specified

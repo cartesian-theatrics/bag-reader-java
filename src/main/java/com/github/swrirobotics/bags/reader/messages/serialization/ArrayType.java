@@ -68,9 +68,9 @@ public class ArrayType implements Field {
      *                                     or if a variable-length array had a length of 0.
      */
     public List<Field> getFields() throws UninitializedFieldException {
-        if (myFields.isEmpty()) {
-            throw new UninitializedFieldException();
-        }
+        //if (myFields.isEmpty()) {
+        //    throw new UninitializedFieldException();
+        //}
 
         return myFields;
     }

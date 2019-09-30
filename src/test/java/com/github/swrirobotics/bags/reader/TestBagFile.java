@@ -55,7 +55,7 @@ public class TestBagFile {
         bag.forMessagesOnTopic("/data", new MessageHandler() {
             @Override
             public boolean process(BagMessage msg) {
-                MessageType message = msg.msg;
+                MessageType message = msg.getMessage();
                 Int8Type data = message.getField("data");
                 try {
                     assertEquals(-127, data.getValue().shortValue());
@@ -79,7 +79,7 @@ public class TestBagFile {
         bag.forMessagesOnTopic("/data", new MessageHandler() {
             @Override
             public boolean process(BagMessage msg) {
-                MessageType message = msg.msg;
+                MessageType message = msg.getMessage();
                 ArrayType data = message.getField("data");
                 byte[] values = data.getAsBytes();
                 assertEquals(-127, values[0]);
@@ -101,7 +101,7 @@ public class TestBagFile {
         bag.forMessagesOnTopic("/data", new MessageHandler() {
             @Override
             public boolean process(BagMessage msg) {
-                MessageType message = msg.msg;
+                MessageType message = msg.getMessage();
                 UInt8Type data = message.getField("data");
                 try {
                     assertEquals(180, data.getValue().shortValue());
@@ -125,7 +125,7 @@ public class TestBagFile {
         bag.forMessagesOnTopic("/data", new MessageHandler() {
             @Override
             public boolean process(BagMessage msg) {
-                MessageType message = msg.msg;
+                MessageType message = msg.getMessage();
                 ArrayType data = message.getField("data");
                 short[] values = data.getAsShorts();
                 assertEquals(180, values[0]);
@@ -148,7 +148,7 @@ public class TestBagFile {
         bag.forMessagesOnTopic("/data", new MessageHandler() {
             @Override
             public boolean process(BagMessage msg) {
-                MessageType message = msg.msg;
+                MessageType message = msg.getMessage();
                 Int16Type data = message.getField("data");
                 try {
                     assertEquals(-32767, data.getValue().intValue());
@@ -172,7 +172,7 @@ public class TestBagFile {
         bag.forMessagesOnTopic("/data", new MessageHandler() {
             @Override
             public boolean process(BagMessage msg) {
-                MessageType message = msg.msg;
+                MessageType message = msg.getMessage();
                 ArrayType data = message.getField("data");
                 short[] values = data.getAsShorts();
                 assertEquals(-32767, values[0]);
@@ -194,7 +194,7 @@ public class TestBagFile {
         bag.forMessagesOnTopic("/data", new MessageHandler() {
             @Override
             public boolean process(BagMessage msg) {
-                MessageType message = msg.msg;
+                MessageType message = msg.getMessage();
                 UInt16Type data = message.getField("data");
                 try {
                     assertEquals(65535, data.getValue().intValue());
@@ -218,7 +218,7 @@ public class TestBagFile {
         bag.forMessagesOnTopic("/data", new MessageHandler() {
             @Override
             public boolean process(BagMessage msg) {
-                MessageType message = msg.msg;
+                MessageType message = msg.getMessage();
                 ArrayType data = message.getField("data");
                 int[] values = data.getAsInts();
                 assertEquals(0, values[0]);
@@ -240,7 +240,7 @@ public class TestBagFile {
         bag.forMessagesOnTopic("/data", new MessageHandler() {
             @Override
             public boolean process(BagMessage msg) {
-                MessageType message = msg.msg;
+                MessageType message = msg.getMessage();
                 Int32Type data = message.getField("data");
                 try {
                     assertEquals(-2147483647, data.getValue().longValue());
@@ -264,7 +264,7 @@ public class TestBagFile {
         bag.forMessagesOnTopic("/data", new MessageHandler() {
             @Override
             public boolean process(BagMessage msg) {
-                MessageType message = msg.msg;
+                MessageType message = msg.getMessage();
                 ArrayType data = message.getField("data");
                 int[] values = data.getAsInts();
                 assertEquals(-2147483647, values[0]);
@@ -286,7 +286,7 @@ public class TestBagFile {
         bag.forMessagesOnTopic("/data", new MessageHandler() {
             @Override
             public boolean process(BagMessage msg) {
-                MessageType message = msg.msg;
+                MessageType message = msg.getMessage();
                 UInt32Type data = message.getField("data");
                 try {
                     assertEquals(4294967294L, data.getValue().longValue());
@@ -310,7 +310,7 @@ public class TestBagFile {
         bag.forMessagesOnTopic("/data", new MessageHandler() {
             @Override
             public boolean process(BagMessage msg) {
-                MessageType message = msg.msg;
+                MessageType message = msg.getMessage();
                 ArrayType data = message.getField("data");
                 long[] values = data.getAsLongs();
                 assertEquals(0, values[0]);
@@ -332,7 +332,7 @@ public class TestBagFile {
         bag.forMessagesOnTopic("/data", new MessageHandler() {
             @Override
             public boolean process(BagMessage msg) {
-                MessageType message = msg.msg;
+                MessageType message = msg.getMessage();
                 Int64Type data = message.getField("data");
                 try {
                     assertEquals(-9223372036854775806L, data.getValue().longValue());
@@ -356,7 +356,7 @@ public class TestBagFile {
         bag.forMessagesOnTopic("/data", new MessageHandler() {
             @Override
             public boolean process(BagMessage msg) {
-                MessageType message = msg.msg;
+                MessageType message = msg.getMessage();
                 ArrayType data = message.getField("data");
                 long[] values = data.getAsLongs();
                 assertEquals(-9223372036854775806L, values[0]);
@@ -378,7 +378,7 @@ public class TestBagFile {
         bag.forMessagesOnTopic("/data", new MessageHandler() {
             @Override
             public boolean process(BagMessage msg) {
-                MessageType message = msg.msg;
+                MessageType message = msg.getMessage();
                 UInt64Type data = message.getField("data");
                 try {
                     assertEquals(new BigInteger("18446744073709551615"), data.getValue());
@@ -402,7 +402,7 @@ public class TestBagFile {
         bag.forMessagesOnTopic("/data", new MessageHandler() {
             @Override
             public boolean process(BagMessage msg) {
-                MessageType message = msg.msg;
+                MessageType message = msg.getMessage();
                 ArrayType data = message.getField("data");
                 BigInteger[] values = data.getAsBigIntegers();
                 assertEquals(BigInteger.ZERO, values[0]);
@@ -423,7 +423,7 @@ public class TestBagFile {
         bag.forMessagesOnTopic("/data", new MessageHandler() {
             @Override
             public boolean process(BagMessage msg) {
-                MessageType message = msg.msg;
+                MessageType message = msg.getMessage();
                 Float32Type data = message.getField("data");
                 try {
                     assertEquals(3.14159, data.getValue(), 0.00001);
@@ -448,7 +448,7 @@ public class TestBagFile {
         bag.forMessagesOnTopic("/data", new MessageHandler() {
             @Override
             public boolean process(BagMessage msg) {
-                MessageType message = msg.msg;
+                MessageType message = msg.getMessage();
                 ArrayType data = message.getField("data");
                 float[] values = data.getAsFloats();
                 assertEquals(0.0, values[0], 0.00001);
@@ -469,7 +469,7 @@ public class TestBagFile {
         bag.forMessagesOnTopic("/data", new MessageHandler() {
             @Override
             public boolean process(BagMessage msg) {
-                MessageType message = msg.msg;
+                MessageType message = msg.getMessage();
                 Float64Type data = message.getField("data");
                 try {
                     assertEquals(1.003062456558312, data.getValue(), 0.000000001);
@@ -494,7 +494,7 @@ public class TestBagFile {
         bag.forMessagesOnTopics(Lists.newArrayList("/data"), new MessageHandler() {
             @Override
             public boolean process(BagMessage msg) {
-                MessageType message = msg.msg;
+                MessageType message = msg.getMessage();
                 ArrayType data = message.getField("data");
                 double[] values = data.getAsDoubles();
                 assertEquals(1.003062456558312, values[0], 0.000000001);
@@ -515,7 +515,7 @@ public class TestBagFile {
             @Override
             public boolean process(BagMessage msg) {
                 try {
-                    MessageType message = msg.msg;
+                    MessageType message = msg.getMessage();
                     assertEquals(124914,
                                  message.<UInt32Type>getField("width").getValue().longValue());
 

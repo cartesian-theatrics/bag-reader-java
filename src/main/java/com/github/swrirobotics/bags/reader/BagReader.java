@@ -108,18 +108,18 @@ public class BagReader {
             bag.printInfo();
 
             // Gets the first GPS message and prints it.
-            BagMessage msg = bag.getFirstMessageOfType("gps_common/GPSFix");
+            MessageType msg = bag.getFirstMessageOfType("gps_common/GPSFix").getMessage();
 
             if (msg == null) {
-                msg = bag.getFirstMessageOfType("sensor_msgs/NavSatFix");
+                msg = bag.getFirstMessageOfType("sensor_msgs/NavSatFix").getMessage();
             }
             if (msg == null) {
-                msg = bag.getFirstMessageOfType("marti_gps_common/GPSFix");
+                msg = bag.getFirstMessageOfType("marti_gps_common/GPSFix").getMessage();
             }
             if (msg != null) {
                 myLogger.info("Lat/Lon: " +
-                              msg.msg.<Float64Type>getField("latitude").getValue() + " / " +
-                              msg.msg.<Float64Type>getField("longitude").getValue());
+                              msg.<Float64Type>getField("latitude").getValue() + " / " +
+                              msg.<Float64Type>getField("longitude").getValue());
             }
 
             // Prints out a unique fingerprint for the bag file.  Note that
