@@ -3,15 +3,15 @@
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
     <modelVersion>4.0.0</modelVersion>
-    <groupId>com.github.swri-robotics</groupId>
+    <groupId>org.cartesiantheatrics</groupId>
     <artifactId>bag-reader-java</artifactId>
     <packaging>jar</packaging>
-    <version>1.10.2</version>
+    <version>0.0.1</version>
     <name>bag-reader-java</name>
     <url>https://github.com/swri-robotics/bag-reader-java</url>
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <java-version>11</java-version>
+        <java-version>8</java-version>
     </properties>
     <dependencies>
         <dependency>
